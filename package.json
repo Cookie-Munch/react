@@ -1,6 +1,6 @@
 {
   "name": "@cookiemunch/react",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "React/Next wrapper for Cookie Munch",
   "type": "module",
   "main": "./dist/index.js",
@@ -12,12 +12,24 @@
       "import": "./dist/index.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsup",
     "test": "vitest run"
   },
   "peerDependencies": {
     "react": ">=18"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cookie-Munch/react.git"
+  },
+  "homepage": "https://cookiemunch.net/docs",
+  "bugs": {
+    "url": "https://github.com/Cookie-Munch/react/issues"
+  },
+  "license": "MIT"
 }

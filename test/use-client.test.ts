@@ -27,7 +27,8 @@ import { build, type Options } from 'tsup';
 import config from '../tsup.config.js';
 
 const pkg = resolve(__dirname, '..');
-const web = resolve(pkg, '../../apps/web');
+// The dashboard app, for Next's own transform. Absent in the public mirror; those tests skip.
+const web = resolve(pkg, '..', '..', 'apps', 'web');
 let out: string;
 
 const CLIENT = ['ConsentGate', 'ConsentProvider', 'useConsent', 'useConsentCookie', 'useConsentValue'];
@@ -110,9 +111,10 @@ describe('the published build', () => {
     expect(read('client.d.ts')).toMatch(/from\s*["']\.\/helpers\.js["']/);
   });
 
-  it('is the version that carries the split', () => {
+  it('is a version that carries the split (0.1.1 or later)', () => {
     const manifest = JSON.parse(readFileSync(join(pkg, 'package.json'), 'utf8')) as { version: string };
-    expect(manifest.version).toBe('0.1.1');
+    const [major, minor, patch] = manifest.version.split('.').map(Number) as [number, number, number];
+    expect(major * 1e6 + minor * 1e3 + patch).toBeGreaterThanOrEqual(1001);
   });
 });
 

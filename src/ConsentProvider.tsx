@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { ConsentContext, EMPTY_CONSENT, type ConsentContextValue } from './context.js';
-import type { CookieMunchGlobal, PublicConsent } from './types.js';
+import type { CookieMunchGlobal, PublicConsent } from './helpers.js';
 
 /** Default CDN location of the base browser embed. */
 const DEFAULT_SRC = 'https://cdn.cookiemunch.net/consent.js';

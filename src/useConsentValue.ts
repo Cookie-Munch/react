@@ -1,6 +1,6 @@
 import { useContext, useEffect, useSyncExternalStore } from 'react';
 import { ConsentContext } from './context.js';
-import { consentCookie, isGranted, type ConsentCookieOptions } from './consent-cookie.js';
+import { consentCookie, isGranted, type ConsentCookieOptions } from './helpers.js';
 
 /** Window events after which the embed's consent may differ. */
 const CHANGE_EVENTS = ['CookieMunchOnChange', 'CookieMunchOnAccept', 'CookieMunchOnDecline'];

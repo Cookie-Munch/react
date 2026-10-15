@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import type { PublicConsent } from './types.js';
+import type { PublicConsent } from './helpers.js';
 
 export interface ConsentContextValue {
   ready: boolean;

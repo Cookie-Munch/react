@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import type { Category } from './types.js';
+import type { Category } from './helpers.js';
 import { useConsent } from './useConsent.js';
 
 export interface ConsentGateProps {

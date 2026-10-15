@@ -1,6 +1,24 @@
-export { ConsentProvider, type ConsentProviderProps } from './ConsentProvider.js';
-export { useConsent, type ConsentContextValue } from './useConsent.js';
-export { ConsentGate, type ConsentGateProps } from './ConsentGate.js';
-export type { Category, PublicConsent, CookieMunchGlobal } from './types.js';
-export { useConsentValue, useConsentCookie } from './useConsentValue.js';
-export { consentCookie, isGranted, type ConsentCookieOptions } from './consent-cookie.js';
+// No directive here, only re-exports. On the React Server layer Next turns the client.js names
+// into client references and leaves the helpers as plain functions, so one root import —
+// `import { ConsentProvider, isGranted } from '@cookiemunch/react'` — works in a Server Component.
+export {
+  ConsentProvider,
+  type ConsentProviderProps,
+  useConsent,
+  type ConsentContextValue,
+  ConsentGate,
+  type ConsentGateProps,
+  useConsentValue,
+  useConsentCookie,
+} from './client.js';
+export {
+  consentCookie,
+  isGranted,
+  type ConsentCookieOptions,
+  CONSENT_COOKIE_NAME,
+  parseConsentCookie,
+  type ConsentCookieState,
+  type Category,
+  type PublicConsent,
+  type CookieMunchGlobal,
+} from './helpers.js';

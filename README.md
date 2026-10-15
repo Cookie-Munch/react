@@ -46,7 +46,44 @@ That's it — the banner itself is rendered by the embed script, not by React. T
 | `apiBase` | `string` | no | Overrides the API origin the embed beacons consent decisions to. Injected as `data-api`. Omit it to use the default (same origin as the CDN). |
 | `children` | `ReactNode` | yes | Your app tree. |
 
-`ConsentProvider` is SSR-safe: it never touches `window` or `document` during render, only inside an effect, so it's safe to mount in a Next.js Server Component boundary (the provider itself must be a Client Component, but its children don't have to be). Until the embed reports in, descendants see a not-ready, all-denied snapshot (`necessary: true`, everything else `false`) rather than throwing or blocking render.
+`ConsentProvider` is SSR-safe: it never touches `window` or `document` during render, only inside an effect. Until the embed reports in, descendants see a not-ready, all-denied snapshot (`necessary: true`, everything else `false`) rather than throwing or blocking render.
+
+### Next.js App Router
+
+From 0.1.1 a Server Component can import from the package root directly. The `app/layout.tsx` above works as written: no wrapper file, and no `"use client"` in your layout. Your layout and the pages under it stay Server Components; only the provider and the hooks run in the browser.
+
+The package is built as two modules behind the root:
+
+| Module | Directive | Exports |
+| --- | --- | --- |
+| client | `"use client"` | `ConsentProvider`, `useConsent`, `useConsentValue`, `useConsentCookie`, `ConsentGate` |
+| helpers | none | `isGranted`, `parseConsentCookie`, `CONSENT_COOKIE_NAME`, `consentCookie`, the types |
+
+The root entry has no directive and only re-exports the two. In a Server Component, Next.js turns the client names into client references, and the helpers stay plain functions you can call there. So a single import serves both:
+
+```tsx
+// app/layout.tsx — a Server Component
+import { cookies } from 'next/headers';
+import { ConsentProvider, CONSENT_COOKIE_NAME, isGranted, parseConsentCookie } from '@cookiemunch/react';
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const consent = parseConsentCookie((await cookies()).get(CONSENT_COOKIE_NAME)?.value);
+  return (
+    <html lang="en">
+      <body>
+        <ConsentProvider cbid="your-site-id">{children}</ConsentProvider>
+        {isGranted(consent, 'statistics') && <script src="/analytics.js" async />}
+      </body>
+    </html>
+  );
+}
+```
+
+`parseConsentCookie(value)` reads the embed's `CookieMunch` cookie: the URL-encoded JSON the embed writes, plain JSON, or a legacy Cookiebot value. It returns the decision, or `null` when there is none the embed would honour. `isGranted(null, category)` is `true` only for `necessary`. It does not apply `minVersion` or `expiryDays`. For those, use `readConsent` from `@cookiemunch/sdk/consent` (see [the consent cookie](/docs/consent-cookie)).
+
+Hooks and components still only work in Client Components. `consentCookie` can be imported anywhere, but it does nothing on the server, because there is no `document` there.
+
+On 0.1.0, importing `ConsentProvider` in a Server Component failed `next build` with *"You're importing a component that needs `useEffect`"*. If you added a wrapper for that (a `providers.tsx` with `"use client"` that re-exports `ConsentProvider`), it still works, and you can delete it after upgrading.
 
 If `cbid`, `src`, or `apiBase` change on a re-render, the provider re-binds to the (possibly new) embed instance.
 
@@ -205,5 +242,5 @@ To read the same decision on your server, see [the consent cookie](https://cooki
 ## Notes
 
 - There is no `<ConsentBanner>` export in `@cookiemunch/react` — banner UI is rendered by the embed script itself (configured from your Cookie Munch dashboard), not by React. `ConsentProvider` only bridges its state into your component tree. If you want a fully custom banner, hide the stock one in your config and drive `submitCustomConsent`/`acceptAll`/`declineAll` from your own UI as shown above.
-- Everything exported (`ConsentProvider`, `useConsent`, `ConsentGate`, `useConsentValue`, `useConsentCookie`, `consentCookie`, `isGranted`, and the `Category` / `PublicConsent` / `CookieMunchGlobal` types) is available from the package root: `import { ... } from '@cookiemunch/react'`.
+- Everything exported (`ConsentProvider`, `useConsent`, `ConsentGate`, `useConsentValue`, `useConsentCookie`, `consentCookie`, `isGranted`, `parseConsentCookie`, `CONSENT_COOKIE_NAME`, and the `Category` / `PublicConsent` / `CookieMunchGlobal` / `ConsentCookieState` types) is available from the package root: `import { ... } from '@cookiemunch/react'`, in Client and Server Components alike.
 - Types for `window.CookieMunch` are declared locally in this package (not imported from `@cookiemunch/core`), so installing `@cookiemunch/react` alone is enough to get full typing in a project that never installs the core engine directly.

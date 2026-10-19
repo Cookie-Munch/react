@@ -50,6 +50,13 @@ export interface CookieMunchGlobal {
   submitCustomConsent(preferences: boolean, statistics: boolean, marketing: boolean): void;
   /** Subscribe to consent changes (accept/decline). Returns an unsubscribe fn. */
   onConsentChange(callback: (state: unknown) => void): () => void;
+  /**
+   * Whether `category` (a site category id or an alias such as `functional`) is consented.
+   * An unknown category answers false. Optional: older embeds lack it.
+   */
+  hasConsent?(category: string): boolean;
+  /** Draw the cookie declaration into `el` (all mounts when omitted). Optional: older embeds lack it. */
+  renderDeclaration?(el?: Element | null): Promise<void>;
 }
 
 /** Augment the browser `Window` with the embed's globals. */

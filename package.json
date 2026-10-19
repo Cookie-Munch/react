@@ -1,6 +1,6 @@
 {
   "name": "@cookiemunch/react",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "React/Next wrapper for Cookie Munch",
   "type": "module",
   "main": "./dist/index.js",

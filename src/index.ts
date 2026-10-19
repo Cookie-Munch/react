@@ -10,6 +10,11 @@ export {
   type ConsentGateProps,
   useConsentValue,
   useConsentCookie,
+  RightsLink,
+  type RightsLinkProps,
+  type MintedRightsLink,
+  CookieDeclaration,
+  type CookieDeclarationProps,
 } from './client.js';
 export {
   consentCookie,
@@ -17,6 +22,7 @@ export {
   type ConsentCookieOptions,
   CONSENT_COOKIE_NAME,
   parseConsentCookie,
+  isRightsLinkUrl,
   type ConsentCookieState,
   type Category,
   type PublicConsent,

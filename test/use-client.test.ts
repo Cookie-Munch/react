@@ -31,7 +31,7 @@ const pkg = resolve(__dirname, '..');
 const web = resolve(pkg, '..', '..', 'apps', 'web');
 let out: string;
 
-const CLIENT = ['ConsentGate', 'ConsentProvider', 'CookieDeclaration', 'RightsLink', 'useConsent', 'useConsentCookie', 'useConsentValue'];
+const CLIENT = ['ConsentGate', 'ConsentProvider', 'CookieDeclaration', 'CookieSettingsLink', 'RightsLink', 'useBannerInset', 'useConsent', 'useConsentCookie', 'useConsentValue'];
 const HELPERS = ['CONSENT_COOKIE_NAME', 'consentCookie', 'isGranted', 'isRightsLinkUrl', 'parseConsentCookie'];
 
 beforeAll(async () => {

@@ -10,11 +10,14 @@ export {
   type ConsentGateProps,
   useConsentValue,
   useConsentCookie,
+  useBannerInset,
   RightsLink,
   type RightsLinkProps,
   type MintedRightsLink,
   CookieDeclaration,
   type CookieDeclarationProps,
+  CookieSettingsLink,
+  type CookieSettingsLinkProps,
 } from './client.js';
 export {
   consentCookie,

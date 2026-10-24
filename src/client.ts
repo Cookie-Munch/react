@@ -7,3 +7,5 @@ export { ConsentGate, type ConsentGateProps } from './ConsentGate.js';
 export { useConsentValue, useConsentCookie } from './useConsentValue.js';
 export { RightsLink, type RightsLinkProps, type MintedRightsLink } from './RightsLink.js';
 export { CookieDeclaration, type CookieDeclarationProps } from './CookieDeclaration.js';
+export { useBannerInset } from './useBannerInset.js';
+export { CookieSettingsLink, type CookieSettingsLinkProps } from './CookieSettingsLink.js';

@@ -2,6 +2,11 @@
 
 Every published release, newest first. Dates are the day the version was cut.
 
+## 0.3.0 (2026-10-24)
+
+- Added: `<CookieSettingsLink>`, the "Cookie settings" link that reopens the visitor's choices. Plain markup the embed handles, so it renders the same on the server and needs no provider.
+- Added: `useBannerInset()` — the bar's covered edge in pixels, live, for lifting floating buttons.
+
 ## 0.2.1 (2026-10-22)
 
 - The package now ships this changelog and a README.

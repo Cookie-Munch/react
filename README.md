@@ -239,6 +239,10 @@ const stop = consentCookie('ab_bucket', 'statistics', () => pickBucket(), { maxA
 
 To read the same decision on your server, see [the consent cookie](https://cookiemunch.net/docs/consent-cookie).
 
+## A "Cookie settings" link
+
+`<CookieSettingsLink className="footer-link" />` renders `<a href="#cookie-settings" data-cc="show-settings">Cookie settings</a>`. The embed opens the visitor's settings when it is clicked. Plain markup, so it renders the same on the server and needs no provider.
+
 ## Notes
 
 - There is no `<ConsentBanner>` export in `@cookiemunch/react` — banner UI is rendered by the embed script itself (configured from your Cookie Munch dashboard), not by React. `ConsentProvider` only bridges its state into your component tree. If you want a fully custom banner, hide the stock one in your config and drive `submitCustomConsent`/`acceptAll`/`declineAll` from your own UI as shown above.

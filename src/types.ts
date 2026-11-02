@@ -55,6 +55,10 @@ export interface CookieMunchGlobal {
    * An unknown category answers false. Optional: older embeds lack it.
    */
   hasConsent?(category: string): boolean;
+  /** `true` granted, `false` refused (or unknown name), `null` not decided yet. Optional: older embeds lack it. */
+  consentState?(category: string): boolean | null;
+  /** Call `callback` once when `category` is granted (a microtask later if it already is). Returns an unsubscribe. Optional: older embeds lack it. */
+  onConsent?(category: string, callback: () => void): () => void;
   /** Draw the cookie declaration into `el` (all mounts when omitted). Optional: older embeds lack it. */
   renderDeclaration?(el?: Element | null): Promise<void>;
 }

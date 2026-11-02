@@ -2,6 +2,11 @@
 
 Every published release, newest first. Dates are the day the version was cut.
 
+## 0.4.0 (2026-11-02)
+
+- Added: types for `CookieMunch.consentState(category)` and `CookieMunch.onConsent(category, cb)` on the embed global.
+- Added: `CookieMunch.cbid`, the site the embed resolved (also with `data-cbid="auto"`).
+
 ## 0.3.0 (2026-10-24)
 
 - Added: `<CookieSettingsLink>`, the "Cookie settings" link that reopens the visitor's choices. Plain markup the embed handles, so it renders the same on the server and needs no provider.

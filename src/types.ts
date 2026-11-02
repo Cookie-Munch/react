@@ -42,6 +42,8 @@ export interface CookieMunchGlobal {
   readonly consent: PublicConsent;
   readonly consented: boolean;
   readonly hasResponse: boolean;
+  /** The site id, including one resolved from the page host (`data-cbid="auto"`); undefined until known. */
+  cbid?: string;
   show(): void;
   renew(): void;
   /** Open the preference center / second layer. */

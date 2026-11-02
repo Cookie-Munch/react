@@ -11,7 +11,8 @@ import { defineConfig, type Options } from 'tsup';
 // copy (a second copy of types.ts would declare `Window.CookieMunch` twice, which TypeScript rejects).
 const common: Options = {
   format: ['esm'],
-  dts: true,
+  // The image builds skip types (CM_SKIP_TYPES); this package keeps tsup's bundled .d.ts per entry.
+  dts: process.env.CM_SKIP_TYPES !== '1',
   sourcemap: true,
   splitting: false,
 };

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useSyncExternalStore } from 'react';
 import { ConsentContext } from './context.js';
-import { consentCookie, isGranted, type ConsentCookieOptions } from './helpers.js';
+import { consentCookie, isGranted, type CategoryId, type ConsentCookieOptions } from './helpers.js';
 
 /** Window events after which the embed's consent may differ. */
 const CHANGE_EVENTS = ['CookieMunchOnChange', 'CookieMunchOnAccept', 'CookieMunchOnDecline'];
@@ -24,7 +24,7 @@ function subscribe(onStoreChange: () => void): () => void {
  *
  *   const analytics = useConsentValue('statistics');
  */
-export function useConsentValue(category: string): boolean {
+export function useConsentValue(category: CategoryId): boolean {
   const ctx = useContext(ConsentContext);
   const standalone = useSyncExternalStore(
     subscribe,
@@ -44,7 +44,7 @@ export function useConsentValue(category: string): boolean {
  */
 export function useConsentCookie(
   name: string,
-  category: string,
+  category: CategoryId,
   value: string | (() => string),
   opts: ConsentCookieOptions = {},
 ): void {

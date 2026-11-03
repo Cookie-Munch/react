@@ -2,6 +2,10 @@
 
 Every published release, newest first. Dates are the day the version was cut.
 
+## 0.5.0 (2026-11-03)
+
+- Added: `CookieMunchCategories`, an augmentable interface: `cookiemunch types` writes it so category arguments accept only your site's categories. Empty, any string still works.
+
 ## 0.4.0 (2026-11-02)
 
 - Added: types for `CookieMunch.consentState(category)` and `CookieMunch.onConsent(category, cb)` on the embed global.

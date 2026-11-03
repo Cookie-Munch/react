@@ -12,6 +12,18 @@
 export type Category = 'necessary' | 'preferences' | 'statistics' | 'marketing';
 
 /**
+ * Empty until you augment it with your site's category ids (`cookiemunch types` writes the augmentation):
+ *
+ *   declare module '@cookiemunch/react' { interface CookieMunchCategories { necessary: true; statistics: true } }
+ *
+ * Then every category argument (useConsentValue, useConsentCookie, consentState, onConsent, hasConsent) accepts only those.
+ */
+export interface CookieMunchCategories {}
+
+/** A category id: one of CookieMunchCategories' keys once augmented, any string until then. */
+export type CategoryId = [keyof CookieMunchCategories] extends [never] ? string : Extract<keyof CookieMunchCategories, string>;
+
+/**
  * The visitor's consent snapshot, mirroring what the embed exposes at
  * `window.CookieMunch.consent`. Includes the four base categories, the granular
  * advertising signals, and a receipt `stamp`. Custom category keys may also be
@@ -56,11 +68,11 @@ export interface CookieMunchGlobal {
    * Whether `category` (a site category id or an alias such as `functional`) is consented.
    * An unknown category answers false. Optional: older embeds lack it.
    */
-  hasConsent?(category: string): boolean;
+  hasConsent?(category: CategoryId): boolean;
   /** `true` granted, `false` refused (or unknown name), `null` not decided yet. Optional: older embeds lack it. */
-  consentState?(category: string): boolean | null;
+  consentState?(category: CategoryId): boolean | null;
   /** Call `callback` once when `category` is granted (a microtask later if it already is). Returns an unsubscribe. Optional: older embeds lack it. */
-  onConsent?(category: string, callback: () => void): () => void;
+  onConsent?(category: CategoryId, callback: () => void): () => void;
   /** Draw the cookie declaration into `el` (all mounts when omitted). Optional: older embeds lack it. */
   renderDeclaration?(el?: Element | null): Promise<void>;
 }

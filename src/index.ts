@@ -28,6 +28,8 @@ export {
   isRightsLinkUrl,
   type ConsentCookieState,
   type Category,
+  type CategoryId,
+  type CookieMunchCategories,
   type PublicConsent,
   type CookieMunchGlobal,
 } from './helpers.js';

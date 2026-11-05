@@ -2,6 +2,10 @@
 
 Every published release, newest first. Dates are the day the version was cut.
 
+## 0.6.0
+
+- `hasConsent(category)` and `onConsentChange(fn)`, moved here from `@cookiemunch/next`, which still exports them.
+
 ## 0.5.1 (2026-11-04)
 
 - Changed: published from CI with an npm provenance attestation; no code change.

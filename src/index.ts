@@ -20,6 +20,8 @@ export {
   type CookieSettingsLinkProps,
 } from './client.js';
 export {
+  hasConsent,
+  onConsentChange,
   consentCookie,
   isGranted,
   type ConsentCookieOptions,

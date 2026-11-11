@@ -2,6 +2,10 @@
 
 Every published release, newest first. Dates are the day the version was cut.
 
+## 0.7.0 (2026-11-11)
+
+- `onConsentCategory(category, fn)` and the hook `useConsentTransition(category, fn)` call `fn` only when that category changes, with `{ granted, previous, replay, cause }`. A visitor's stored decision is replayed once with `replay: true`.
+
 ## 0.6.0 (2026-11-05)
 
 - `hasConsent(category)` and `onConsentChange(fn)`, moved here from `@cookiemunch/next`, which still exports them.

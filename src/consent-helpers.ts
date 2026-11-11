@@ -34,3 +34,44 @@ export function onConsentChange(fn: (consent: Consent) => void): () => void {
     window.removeEventListener('CookieMunchOnChange', onChange);
   };
 }
+
+/** What `onConsentCategory` hands its callback. */
+export interface ConsentTransition {
+  /** The category's state now. */
+  granted: boolean;
+  /** Its state before this call: undefined on the first call (no decision seen yet in this page). */
+  previous: boolean | undefined;
+  /** True for the first call when the visitor had already decided before you subscribed: start what was granted, nothing changed. */
+  replay: boolean;
+  /** Why it changed, as the embed's change event says (`banner`, `api`, `withdraw`…); `replay` for a replay. */
+  cause: string;
+}
+
+/**
+ * Calls `fn` only when `category` actually changes: once straight away as a replay when the visitor
+ * has already decided, then on each grant or withdrawal, never twice for the same state. Start a
+ * vendor on `granted`, stop it when `!granted && previous`. Returns the unsubscribe; nothing on the server.
+ */
+export function onConsentCategory(category: string, fn: (t: ConsentTransition) => void): () => void {
+  if (typeof window === 'undefined') return () => {};
+  let active = true;
+  let last: boolean | undefined;
+  const emit = (consent: Consent, cause: string, replay: boolean) => {
+    const granted = category === 'necessary' || isGranted(consent as never, category);
+    if (!active || granted === last) return;
+    const previous = last;
+    last = granted;
+    fn({ granted, previous, replay, cause });
+  };
+  const onChange = (e: Event) => {
+    const d = (e as CustomEvent<{ consent?: Consent; cause?: unknown }>).detail;
+    if (d?.consent) emit(d.consent, typeof d.cause === 'string' ? d.cause : 'change', false);
+  };
+  window.addEventListener('CookieMunchOnChange', onChange);
+  const already = decided();
+  if (already) queueMicrotask(() => emit(already, 'replay', true));
+  return () => {
+    active = false;
+    window.removeEventListener('CookieMunchOnChange', onChange);
+  };
+}

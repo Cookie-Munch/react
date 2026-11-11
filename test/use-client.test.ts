@@ -31,8 +31,8 @@ const pkg = resolve(__dirname, '..');
 const web = resolve(pkg, '..', '..', 'apps', 'web');
 let out: string;
 
-const CLIENT = ['ConsentGate', 'ConsentProvider', 'CookieDeclaration', 'CookieSettingsLink', 'RightsLink', 'useBannerInset', 'useConsent', 'useConsentCookie', 'useConsentValue'];
-const HELPERS = ['CONSENT_COOKIE_NAME', 'consentCookie', 'hasConsent', 'isGranted', 'isRightsLinkUrl', 'onConsentChange', 'parseConsentCookie'];
+const CLIENT = ['ConsentGate', 'ConsentIdentity', 'ConsentProvider', 'CookieDeclaration', 'CookieSettingsLink', 'RightsLink', 'useBannerInset', 'useConsent', 'useConsentCookie', 'useConsentTransition', 'useConsentValue'];
+const HELPERS = ['CONSENT_COOKIE_NAME', 'consentCookie', 'hasConsent', 'isGranted', 'isRightsLinkUrl', 'onConsentCategory', 'onConsentChange', 'parseConsentCookie'];
 
 beforeAll(async () => {
   out = mkdtempSync(join(tmpdir(), 'cm-react-dist-'));

@@ -8,4 +8,6 @@ export { useConsentValue, useConsentCookie } from './useConsentValue.js';
 export { RightsLink, type RightsLinkProps, type MintedRightsLink } from './RightsLink.js';
 export { CookieDeclaration, type CookieDeclarationProps } from './CookieDeclaration.js';
 export { useBannerInset } from './useBannerInset.js';
+export { useConsentTransition } from './useConsentTransition.js';
+export { ConsentIdentity, type ConsentIdentityProps } from './ConsentIdentity.js';
 export { CookieSettingsLink, type CookieSettingsLinkProps } from './CookieSettingsLink.js';

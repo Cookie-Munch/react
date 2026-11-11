@@ -14,7 +14,7 @@ export interface CookieDeclarationProps {
 const EMPTY = { __html: '' };
 
 /**
- * The live cookie declaration, for a privacy page in a React / Next.js app (CKM-S-10).
+ * The live cookie declaration, for a privacy page in a React / Next.js app.
  *
  * Renders `<div data-cc="declaration">` and lets the embed draw the table into it. The
  * embed fills the element whenever it appears — on first load, after a client-side

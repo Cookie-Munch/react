@@ -11,6 +11,7 @@ export {
   useConsentValue,
   useConsentCookie,
   useBannerInset,
+  useConsentTransition,
   RightsLink,
   type RightsLinkProps,
   type MintedRightsLink,
@@ -18,10 +19,14 @@ export {
   type CookieDeclarationProps,
   CookieSettingsLink,
   type CookieSettingsLinkProps,
+  ConsentIdentity,
+  type ConsentIdentityProps,
 } from './client.js';
 export {
   hasConsent,
   onConsentChange,
+  onConsentCategory,
+  type ConsentTransition,
   consentCookie,
   isGranted,
   type ConsentCookieOptions,

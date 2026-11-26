@@ -2,6 +2,10 @@
 
 Every published release, newest first. Dates are the day the version was cut.
 
+## 0.8.0 (2026-11-25)
+
+- Added: `<ConsentIdentity tokenUrl="/api/…">`: a same-origin route that mints the token server-side and answers `{ token }`, instead of a `getToken` in the browser. A 401 is retried once.
+
 ## 0.7.0 (2026-11-11)
 
 - `onConsentCategory(category, fn)` and the hook `useConsentTransition(category, fn)` call `fn` only when that category changes, with `{ granted, previous, replay, cause }`. A visitor's stored decision is replayed once with `replay: true`.

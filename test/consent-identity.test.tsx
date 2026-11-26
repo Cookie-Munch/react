@@ -56,3 +56,18 @@ describe('<ConsentIdentity>', () => {
     expect(identify).not.toHaveBeenCalled();
   });
 });
+
+describe('<ConsentIdentity tokenUrl> (LinkHub CM-L14)', () => {
+  it('GETs the route, links its {token}, and retries a 401 once', async () => {
+    let calls = 0;
+    const fetchMock = vi.fn(async () => (++calls === 1 ? new Response('', { status: 401 }) : new Response(JSON.stringify({ token: 'tok-url' }), { status: 200 })));
+    vi.stubGlobal('fetch', fetchMock);
+    render(<ConsentIdentity subject="u1" tokenUrl="/api/atlas/token/cookiemunch" />);
+    await tick();
+    await tick();
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(fetchMock.mock.calls[0]![0]).toBe('/api/atlas/token/cookiemunch');
+    expect(w.__consent?.q).toEqual([['identify', 'tok-url']]);
+    vi.unstubAllGlobals();
+  });
+});
